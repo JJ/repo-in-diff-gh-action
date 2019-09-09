@@ -22,12 +22,14 @@ async function run() {
           issues.forEach( async function( issue ) {
               if ( ! issue.pull_request ) {
 	          console.log(issue)
-                  if ( issue.comments > 0 ) {
-                      const comments = await github.issues.listComments( { owner: user,
-                                                                   repo: repo,
-                                                                   issue_number: issue.number } )
-                      console.log(comments)
-                  }
+                  const events = await github.issues.listEvent( { owner: user,
+                                                                  repo: repo,
+                                                                  issue_number: issue.number } )
+                  events.forEach( async function( event ) {
+                      if ( event.event == 'closed' && ! event.commit_id ) {
+                           core.setFailed( "Issue " + issue.number + " wasn't closed with a commit");
+	              }
+                  })
               }
           })
       }
