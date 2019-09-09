@@ -1,1 +1,1 @@
-github.com/foo/quux
+github.com/foo/baq
