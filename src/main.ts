@@ -16,7 +16,10 @@ async function run() {
 	  const token = core.getInput('github-token', {required: true})
 	  const github = new GitHub(token, {} )
 	  const milestones = await github.issues.listMilestonesForRepo( { owner: user, repo: repo } )
-	  console.log(milestones)
+	  const minMilestones = +core.getInput('minMilestones')
+	  if ( minMilestones && milestones.data.length < minMilestones ) {
+              core.setFailed( "There should be at least " + minMilestones + " milestone(s)");
+	  }
       }
   } catch (error) {
     core.setFailed(error.message);

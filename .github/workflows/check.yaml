@@ -16,4 +16,5 @@ jobs:
         uses: JJ/repo-in-diff-gh-action@releases/v0
         with:
           github-token: ${{github.token}}
+          minMilestones: 1
 
