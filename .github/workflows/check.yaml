@@ -10,11 +10,7 @@ jobs:
         with:
           github-token: ${{github.token}}
           filesChanged: 1
-      - name: dump-steps-test
-        env:
-          STEPS_CONTEXT: ${{ toJson(steps) }}
-        run: echo "$STEPS_CONTEXT"
       - name: obtain-repo
         uses: JJ/repo-in-diff-gh-action@releases/v0
         with:
-          diff: ${{steps.get-diff.outputs.diff}}
+          diff: ${{diff}}
