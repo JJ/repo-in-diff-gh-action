@@ -22,7 +22,7 @@ async function run() {
           issues.forEach( async function( issue ) {
               if ( ! issue.pull_request ) {
 	          console.log(issue)
-                  const events = await github.issues.listEvent( { owner: user,
+                  const events = await github.issues.listEvents( { owner: user,
                                                                   repo: repo,
                                                                   issue_number: issue.number } )
                   events.forEach( async function( event ) {
