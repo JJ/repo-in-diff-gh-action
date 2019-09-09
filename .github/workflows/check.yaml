@@ -2,16 +2,16 @@ name: "Info from repo"
 on: [pull_request]
 
 jobs:
-  check_pr:
+  obtain-repo:
     runs-on: ubuntu-latest
     steps:
-      - name: Get diff
+      - name: get-diff
         uses: JJ/github-pr-contains-action@releases/v1
         with:
           github-token: ${{github.token}}
           filesChanged: 1
           linesChanged: 1
-      - name: Obtain repo
+      - name: obtain-repo
         uses: JJ/repo-in-diff-gh-action@releases/v0
         with:
-          diff: "A diff"
+          diff: ${{steps.get-diff.outputs.diff}}
