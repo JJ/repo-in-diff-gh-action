@@ -15,8 +15,8 @@ async function run() {
 	  console.log( "Repo ", repo)
 	  const token = core.getInput('github-token', {required: true})
 	  const github = new GitHub(token, {} )
-	  const ghRepo = await github.repos.get( user, repo )
-	  console.log(ghRepo)
+	  const milestones = await github.issues.listMilestonesForRepo( { user, repo } )
+	  console.log(milestones)
       }
   } catch (error) {
     core.setFailed(error.message);
