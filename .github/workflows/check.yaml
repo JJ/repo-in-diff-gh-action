@@ -11,10 +11,6 @@ jobs:
           github-token: ${{github.token}}
           filesChanged: 1
           linesChanged: 1
-      - name: Dump steps context
-        env:
-          STEPS_CONTEXT: ${{ toJson(steps) }}
-        run: echo "$STEPS_CONTEXT"
       - name: Obtain repo
         uses: JJ/repo-in-diff-gh-action@releases/v0
         with:
