@@ -4,7 +4,7 @@ It needs [github-pr-contains-action](https://github.com/JJ/github-pr-contains-ac
 
 ## Configure your repo
 
-Add a file like this to your `.github/workflows` directory
+Add a file like this to your `.github/workflows` directory:
 
 ```
 name: "Info from repo"
