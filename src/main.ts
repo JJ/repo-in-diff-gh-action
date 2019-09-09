@@ -24,7 +24,6 @@ async function run() {
                   const events = await github.issues.listEvents( { owner: user,
                                                                    repo: repo,
                                                                    issue_number: issue.number } )
-                  console.log(events)
                   if ( !events.data ) {
                       core.setFailed( "Issue " + issue.number + " wasn't closed with a commit");
 	          } else {
