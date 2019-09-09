@@ -1,11 +1,11 @@
-name: "Check repo in diff"
+name: "Info from repo"
 on: [pull_request]
 
 jobs:
   check_pr:
     runs-on: ubuntu-latest
     steps:
-      - name: Check PR
+      - name: Get diff
         uses: JJ/github-pr-contains-action@releases/v1
         with:
           github-token: ${{github.token}}
