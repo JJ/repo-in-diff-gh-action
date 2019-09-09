@@ -25,10 +25,10 @@ async function run() {
                                                                    repo: repo,
                                                                    issue_number: issue.number } )
                   console.log(events)
-                  if ( !events ) {
+                  if ( !events.data ) {
                       core.setFailed( "Issue " + issue.number + " wasn't closed with a commit");
 	          } else {
-                      events.forEach( async function( event ) {
+                      events.data.forEach( async function( event ) {
                           if ( event.event == 'closed' && ! event.commit_id ) {
                               core.setFailed( "Issue " + issue.number + " wasn't closed with a commit");
 	                  }
