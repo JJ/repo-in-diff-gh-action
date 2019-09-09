@@ -1,1 +1,1 @@
-* https://github.com/JJ/repo-in-diff-gh-action
++ https://github.com/JJ/repo-in-diff-gh-action
