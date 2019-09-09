@@ -20,11 +20,15 @@ async function run() {
 	  const options = await github.issues.listForRepo( { owner: user, repo: repo, state: "closed" } )
 	  const issues = await github.paginate( options )
           issues.forEach( async function( issue ) {
-	      console.log(issue)
-              const comments = await github.issues.listComments( { owner: user,
+              if ( ! issue.pull_request ) {
+	          console.log(issue)
+                  if ( issue.comments > 0 ) {
+                      const comments = await github.issues.listComments( { owner: user,
                                                                    repo: repo,
                                                                    issue_number: issue.number } )
-              console.log(comments)
+                      console.log(comments)
+                  }
+              }
           })
       }
   } catch (error) {
