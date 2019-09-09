@@ -5,18 +5,17 @@ jobs:
   check_pr:
     runs-on: ubuntu-latest
     steps:
-    - name: Check PR
-      uses: JJ/github-pr-contains-action@releases/v1
-      with:
-        github-token: ${{github.token}}
-        filesChanged: 1
-        linesChanged: 1
-    - name: Dump steps context
+      - name: Check PR
+        uses: JJ/github-pr-contains-action@releases/v1
+        with:
+          github-token: ${{github.token}}
+          filesChanged: 1
+          linesChanged: 1
+      - name: Dump steps context
         env:
           STEPS_CONTEXT: ${{ toJson(steps) }}
         run: echo "$STEPS_CONTEXT"
-    - name: Obtain repo
-      uses: JJ/repo-in-diff-gh-action@releases/v0
-      with:
-        diff: "A diff"
-        
+      - name: Obtain repo
+        uses: JJ/repo-in-diff-gh-action@releases/v0
+        with:
+          diff: "A diff"
