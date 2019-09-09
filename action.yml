@@ -1,4 +1,4 @@
-name: 'Node 12 Template Action'
+name: 'Check repo in diff action'
 description: 'Get started with Node actions'
 author: 'GitHub'
 inputs:
