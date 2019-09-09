@@ -5,7 +5,7 @@ jobs:
   obtain-repo:
     runs-on: ubuntu-latest
     steps:
-      - name: get-diff
+      - name: getDiff
         uses: JJ/github-pr-contains-action@releases/v1
         with:
           github-token: ${{github.token}}
@@ -15,4 +15,4 @@ jobs:
       - name: obtain-repo
         uses: JJ/repo-in-diff-gh-action@releases/v0
         with:
-          diff: "github.com/foo/bar"
+          diff: ${{ outputs.getDiff.diff }}

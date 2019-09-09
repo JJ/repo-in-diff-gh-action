@@ -5,8 +5,6 @@ async function run() {
       const diff = core.getInput('diff');
       const ghRepo = /github.com\/(\w+)\/(\w+)/.exec(diff)
       console.log( diff )
-      console.log( /github.com\/(\w+)\/(\w+)/.exec(diff) )
-      console.log( ghRepo )
   } catch (error) {
     core.setFailed(error.message);
   }
