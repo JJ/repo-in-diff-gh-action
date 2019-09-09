@@ -1,6 +1,6 @@
 # Work with repo mentioned in a diff
 
-This template offers an easy way to get started writing a JavaScript action with TypeScript compile time support, unit testing with Jest and using the GitHub Actions Toolkit.
+It needs [github-pr-contains-action]() first, which outputs the diff.
 
 ## Getting Started
 
