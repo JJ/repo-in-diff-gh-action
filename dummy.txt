@@ -1,1 +1,1 @@
-github.com/foo/bar
+github.com/foo/baz
