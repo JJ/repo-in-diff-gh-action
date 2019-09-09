@@ -15,7 +15,7 @@ async function run() {
 	  console.log( "Repo ", repo)
 	  const token = core.getInput('github-token', {required: true})
 	  const github = new GitHub(token, {} )
-	  const ghRepo = github.repos.get( user, repo )
+	  const ghRepo = await github.repos.get( user, repo )
 	  console.log(ghRepo)
       }
   } catch (error) {
