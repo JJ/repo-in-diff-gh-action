@@ -19,7 +19,13 @@ async function run() {
 	  }
 	  const options = await github.issues.listForRepo( { owner: user, repo: repo, state: "closed" } )
 	  const issues = await github.paginate( options )
-	  console.log(issues)
+          issues.forEach( async function( issue ) {
+	      console.log(issue)
+              const comments = await github.issues.listComments( { owner: user,
+                                                                   repo: repo,
+                                                                   issue_number: issue.number } )
+              console.log(comments)
+          })
       }
   } catch (error) {
     core.setFailed(error.message);
