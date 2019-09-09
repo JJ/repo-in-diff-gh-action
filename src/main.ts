@@ -6,7 +6,7 @@ async function run() {
       const diff = process.env.diff as string;
       var ghRepoMatch = /github.com\/(\S+)\/(\S+)/.exec(diff)
       if  ( ghRepoMatch === null ) {
-	  core.setFailed("There's no repo in this diff")
+	  core.setFailed("There's no repo URL in this diff")
       } else {
 	  console.log(ghRepoMatch)
 	  const user = ghRepoMatch[1]
@@ -15,7 +15,7 @@ async function run() {
 	  console.log( "Repo ", repo)
 	  const token = core.getInput('github-token', {required: true})
 	  const github = new GitHub(token, {} )
-	  const milestones = await github.issues.listMilestonesForRepo( { user, repo } )
+	  const milestones = await github.issues.listMilestonesForRepo( { owner: user, repo: repo } )
 	  console.log(milestones)
       }
   } catch (error) {
