@@ -17,6 +17,8 @@ async function run() {
 	  if ( minMilestones && milestones.data.length < minMilestones ) {
               core.setFailed( "There should be at least " + minMilestones + " milestone(s)");
 	  }
+	  const issues = await github.issues.listForRepo( { owner: user, repo: repo } )
+	  console.log(issues)
       }
   } catch (error) {
     core.setFailed(error.message);
