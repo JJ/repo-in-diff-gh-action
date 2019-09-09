@@ -1,1 +1,1 @@
-github.com/foo/baz
+https://github.com/JJ/repo-in-diff-gh-action
