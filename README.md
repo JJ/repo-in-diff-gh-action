@@ -2,7 +2,7 @@
 
 It needs [github-pr-contains-action](https://github.com/JJ/github-pr-contains-action) first, which outputs the diff.
 
-## Getting Started
+## Configure your repo
 
 See the walkthrough located [here](https://github.com/actions/toolkit/blob/master/docs/javascript-action.md).
 
