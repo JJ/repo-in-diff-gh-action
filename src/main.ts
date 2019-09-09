@@ -21,10 +21,12 @@ async function run() {
 	  const issues = await github.paginate( options )
           issues.forEach( async function( issue ) {
               if ( ! issue.pull_request ) {
-	          console.log(issue)
                   const events = await github.issues.listEvents( { owner: user,
-                                                                  repo: repo,
-                                                                  issue_number: issue.number } )
+                                                                   repo: repo,
+                                                                   issue_number: issue.number } )
+                  if ( !events ) {
+                      core.setFailed( "Issue " + issue.number + " wasn't closed with a commit");
+	          }
                   events.forEach( async function( event ) {
                       if ( event.event == 'closed' && ! event.commit_id ) {
                            core.setFailed( "Issue " + issue.number + " wasn't closed with a commit");
