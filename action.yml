@@ -1,4 +1,4 @@
-name: 'Check repo in diff action'
+name: 'repo-in-diff-contains-action'
 description: 'Performs checks on repository found in diff'
 author: 'JJ'
 inputs:
