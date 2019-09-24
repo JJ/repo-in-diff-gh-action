@@ -10,9 +10,13 @@ async function run() {
       } else {
 	  const user = ghRepoMatch[1]
 	  const repo = ghRepoMatch[2]
+          console.log( "Retrieving repo " + repo + " for user " + user )
 	  const token = core.getInput('github-token', {required: true})
 	  const github = new GitHub(token, {} )
 	  const milestones = await github.issues.listMilestonesForRepo( { owner: user, repo: repo } )
+          if ( ! milestones.data.length ) {
+              core.setFailed("There should be at least one milestone")
+          }
 	  const minMilestones = +core.getInput('minMilestones')
 	  if ( minMilestones && milestones.data.length < minMilestones ) {
               core.setFailed( "There should be at least " + minMilestones + " milestone(s)");
