@@ -21,24 +21,33 @@ async function run() {
 	  if ( minMilestones && milestones.data.length < minMilestones ) {
               core.setFailed( "There should be at least " + minMilestones + " milestone(s)");
 	  }
-	  const options = await github.issues.listForRepo( { owner: user, repo: repo, state: "closed" } )
-	  const issues = await github.paginate( options )
-          issues.forEach( async function( issue ) {
-              if ( ! issue.pull_request ) {
-                  const events = await github.issues.listEvents( { owner: user,
+	  var totalIssues
+	  milestones.forEach( async function( milestone ) {
+	      totalIssues += milestone.open_issues + milestone.closed_issues
+	  })
+	  console.log( "There are " + totalIssues + " in your repository ")
+	  if ( ! totalIssues ) {
+	      core.setFailed( "There are 0 issues in your repository")
+	  } else {
+	      const options = await github.issues.listForRepo( { owner: user, repo: repo, state: "closed" } )
+	      const issues = await github.paginate( options )
+              issues.forEach( async function( issue ) {
+		  if ( ! issue.pull_request ) {
+                      const events = await github.issues.listEvents( { owner: user,
                                                                    repo: repo,
-                                                                   issue_number: issue.number } )
-                  if ( !events.data ) {
-                      core.setFailed( "Issue " + issue.number + " wasn't closed with a commit");
-	          } else {
-                      events.data.forEach( async function( event ) {
+                                                                       issue_number: issue.number } )
+                      if ( !events.data ) {
+			  core.setFailed( "Issue " + issue.number + " wasn't closed with a commit");
+	              } else {
+			  events.data.forEach( async function( event ) {
                           if ( event.event == 'closed' && ! event.commit_id ) {
                               core.setFailed( "Issue " + issue.number + " wasn't closed with a commit");
 	                  }
-                      })
-                  }
-              }
-          })
+			  })
+                      }
+		  }
+              })
+	  }
       }
   } catch (error) {
     core.setFailed(error.message);
