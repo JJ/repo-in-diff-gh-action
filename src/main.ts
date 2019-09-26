@@ -21,8 +21,7 @@ async function run() {
 	  if ( minMilestones && milestones.data.length < minMilestones ) {
               core.setFailed( "There should be at least " + minMilestones + " milestone(s)");
 	  }
-	  console.log(milestones)
-	  var totalIssues
+	  var totalIssues = 0
 	  milestones.data.forEach( async function( milestone ) {
 	      totalIssues += milestone.open_issues + milestone.closed_issues
 	  })
