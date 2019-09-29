@@ -19,7 +19,7 @@ async function run() {
           }
 	  const minMilestones = +core.getInput('minMilestones')
 	  if ( minMilestones && milestones.data.length < minMilestones ) {
-              core.setFailed( "There should be at least " + minMilestones + " milestone(s)");
+              core.setFailed( "There should be more than " + minMilestones + " milestone(s)");
 	  }
 	  var totalIssues = 0
 	  milestones.data.forEach( async function( milestone ) {
