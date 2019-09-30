@@ -25,9 +25,9 @@ async function run() {
 	  milestones.data.forEach( async function( milestone ) {
 	      totalIssues += milestone.open_issues + milestone.closed_issues
 	  })
-	  console.log( "There are " + totalIssues + " in your repository ")
+	  console.log( "There are " + totalIssues + " issues in your milestones ")
 	  if ( ! totalIssues ) {
-	      core.setFailed( "There are 0 issues in your repository")
+	      core.setFailed( "There are 0 issues in your milestones")
 	  } else {
 	      const options = await github.issues.listForRepo( { owner: user, repo: repo, state: "closed" } )
 	      const issues = await github.paginate( options )
