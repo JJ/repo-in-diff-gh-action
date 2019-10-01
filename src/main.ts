@@ -22,13 +22,17 @@ async function run() {
               core.setFailed( "There should be more than " + minMilestones + " milestone(s)");
 	  }
 	  var totalIssues = 0
+	  var totalClosedIssues = 0
 	  milestones.data.forEach( async function( milestone ) {
 	      totalIssues += milestone.open_issues + milestone.closed_issues
+	      totalClosedIssues += milestone.closed_issues
 	  })
-	  console.log( "There are " + totalIssues + " issues in your milestones ")
+	  console.log( "There are " + totalIssues + " issues in your milestones  and " + totalClosedIssues + " closed issues ")
 	  if ( ! totalIssues ) {
 	      core.setFailed( "There are 0 issues in your milestones")
-	  } else {
+	  } else if ( ! totalClosedIssues ) {
+	      core.setFailed( "There are no closed issues in your milestones")
+	  } else  {
 	      const options = await github.issues.listForRepo( { owner: user, repo: repo, state: "closed" } )
 	      const issues = await github.paginate( options )
               issues.forEach( async function( issue ) {
