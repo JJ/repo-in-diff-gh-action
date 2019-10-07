@@ -4,7 +4,7 @@ const {GitHub, context} = require('@actions/github')
 async function run() {
   try {
       const diff = process.env.diff as string;
-      var ghRepoMatch = /github.com\/(\S+)\/(\S+?)\b/.exec(diff)
+      var ghRepoMatch = /github.com\/(\S+)\/(.+?)(:\s+|\))/.exec(diff)
       if  ( ghRepoMatch === null ) {
 	  core.setFailed("There's no repo URL in this diff")
       } else {
