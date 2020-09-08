@@ -6,12 +6,12 @@ async function run() {
     try {
 	const diff = process.env.diff as string;
 	const minVersion = semver.clean(process.env.minVersion as string);
-	console.log( "minVersion ", minVersion );
+	core.setOutput( "minVersion", minVersion );
 	// Obtain version
 	var versionMatch= /\s*v?(\d+\.\d+\.\d+)/.exec(diff);
 
 	if ( versionMatch !== null && versionMatch.length > 0 ) {
-	    console.log( versionMatch );
+	    core.setOutput( "versionMatch ", versionMatch[0] );
 	    const version = semver.clean(versionMatch[0] as string);
 	    console.log( "Version ", version );
 	    if ( ! semver.valid(version ) ) {
