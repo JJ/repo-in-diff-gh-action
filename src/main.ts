@@ -32,7 +32,7 @@ async function run() {
 		// Get PRs
 		const minPRs = +core.getInput('minPRs')
 		if ( minPRs > 0 ) {
-		    const PRs = await github.pulls.list( { state: "closed" } )
+		    const PRs = await github.pulls.list( { state: "closed", owner: user, repo: repo } )
 		    if (  PRs.data.length < minPRs ) {
 			core.setFailed("There should be at least " + minPRs + " closed PRs")
 		    }
