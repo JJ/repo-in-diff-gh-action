@@ -4,6 +4,12 @@ author: 'JJ'
 inputs:
   diff:
     description: 'Content of the diff'
+  minMilestones:
+    description: "Minimum number of acceptable milestones"
+  minVersion:
+    description: "Minimum version of repo to check milestones"
+  github-token:
+    description: "GitHub token to check the API"
 runs:
   using: 'node12'
   main: 'lib/main.js'
