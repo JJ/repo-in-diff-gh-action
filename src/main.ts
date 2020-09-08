@@ -34,6 +34,7 @@ async function run() {
 		console.log("::debug:: " + minPRs);
 		if ( minPRs > 0 ) {
 		    const PRs = await github.pulls.list( { state: "closed", owner: user, repo: repo } )
+		    console.log("::debug:: " + PRs.data )
 		    if (  PRs.data.length < minPRs ) {
 			core.setFailed("There should be at least " + minPRs + " closed PRs")
 		    }
