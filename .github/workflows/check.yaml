@@ -10,7 +10,7 @@ jobs:
         with:
           github-token: ${{github.token}}
           filesChanged: 1
-      - name: obtain-repo
+      - name: Check this GH action
         uses: JJ/repo-in-diff-gh-action@releases/v1
         with:
           github-token: ${{github.token}}
