@@ -5,6 +5,7 @@ const {GitHub, context} = require('@actions/github');
 async function run() {
     try {
 	const diff = process.env.diff as string;
+	console.log( "::debug::minVersion ", core.getInput("minVersion" ));
 	const minVersion = semver.clean(core.getInput("minVersion")) as string;
 	console.log( "::debug::minVersion ", minVersion );
 	// Obtain version
