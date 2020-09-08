@@ -15,4 +15,5 @@ jobs:
         with:
           github-token: ${{github.token}}
           minVersion: "1.0.0"
+          minPRs: 1
 

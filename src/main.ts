@@ -17,19 +17,29 @@ async function run() {
 	    core.exportVariable('version',version);
 	    core.setOutput('version',version);
 
-	    if ( semver.gt( version, minVersion ) ) { // Only check this after version
+	    // Obtain URL with MD syntax
+	    var ghRepoMatch = /github.com\/(\S+)\/(.+?)(:\s+|\))/.exec(diff)
 
-		// Obtain URL with MD syntax
-		var ghRepoMatch = /github.com\/(\S+)\/(.+?)(:\s+|\))/.exec(diff)
-
-		if  ( ghRepoMatch === null ) {
+	    if  ( ghRepoMatch === null ) {
 		    core.setFailed("There's no repo URL in this diff with required format")
-		} else {
-		    const user = ghRepoMatch[1]
-		    const repo = ghRepoMatch[2]
-		    console.log( "Retrieving repo " + repo + " for user " + user )
-		    const token = core.getInput('github-token', {required: true})
-		    const github = new GitHub(token, {} )
+	    } else {
+		const user = ghRepoMatch[1]
+		const repo = ghRepoMatch[2]
+		console.log( "Retrieving repo " + repo + " for user " + user )
+		const token = core.getInput('github-token', {required: true})
+		const github = new GitHub(token, {} )
+
+		// Get PRs
+		const minPRs = +core.getInput('minPRs')
+		if ( minPRs > 0 ) {
+		    const PRs = await github.pulls.list( { state: "closed" } )
+		    if (  PRs.data.length < minPRs ) {
+			core.setFailed("There should be at least " + minPRs + " closed PRs")
+		    }
+		}
+
+		// Check milestones and issues from a certain version
+		if ( semver.gt( version, minVersion ) ) { // Only check this if version is higher
 		    const milestones = await github.issues.listMilestonesForRepo( { owner: user, repo: repo } )
 		    if ( ! milestones.data.length ) {
 			core.setFailed("There should be at least one milestone")
