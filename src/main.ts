@@ -5,16 +5,12 @@ const {GitHub, context} = require('@actions/github');
 async function run() {
     try {
 	const diff = process.env.diff as string;
-	console.log( "::debug::minVersion ", core.getInput("minVersion" ));
 	const minVersion = semver.clean(core.getInput("minVersion")) as string;
-	console.log( "::debug::minVersion ", minVersion );
 	// Obtain version
 	var versionMatch= /\s*v?(\d+\.\d+\.\d+)/.exec(diff);
 
 	if ( versionMatch !== null && versionMatch.length > 0 ) {
-	    console.log( "::debug::versionMatch ", versionMatch[0] );
 	    const version = semver.clean(versionMatch[0]) as string;
-	    console.log( "::debug::Version ", version );
 	    if ( ! semver.valid(version ) ) {
 		core.setFailed( version + " is not a valid semantic version ");
 	    }
