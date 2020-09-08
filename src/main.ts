@@ -5,18 +5,19 @@ const {GitHub, context} = require('@actions/github');
 async function run() {
     try {
 	const diff = process.env.diff as string;
-	const minVersion = process.env.minVersion as string;
+	const minVersion = semver.clean(process.env.minVersion as string);
 	// Obtain version
 	var versionMatch= /\s*v(\d+\.\d+\.\d+)/.exec(diff);
+
 	if ( versionMatch !== null && versionMatch.length > 0 ) {
-	    const version = versionMatch[0] as string;
-	    if ( ! semver.valid(semver.clean(version)) ) {
+	    const version = semver.clean(versionMatch[0] as string);
+	    if ( ! semver.valid(version ) ) {
 		core.setFailed( version + " is not a valid semantic version ");
 	    }
 	    core.exportVariable('version',version);
 	    core.setOutput('version',version);
 
-	    if ( semver.gt( semver.clean(version), semver.clean(minVersion) ) ) { // Only check this after version
+	    if ( semver.gt( version, minVersion ) ) { // Only check this after version
 
 		// Obtain URL with MD syntax
 		var ghRepoMatch = /github.com\/(\S+)\/(.+?)(:\s+|\))/.exec(diff)

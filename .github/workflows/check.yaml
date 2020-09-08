@@ -2,7 +2,7 @@ name: "Testing pull requests"
 on: [pull_request]
 
 jobs:
-  obtain-repo:
+  test-prs:
     runs-on: ubuntu-latest
     steps:
       - name: getDiff
