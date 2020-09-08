@@ -70,10 +70,11 @@ async function run() {
 		    }
 		}
 	    }
-	} catch (error) {
-	    core.setFailed(error.message);
 	}
+    } catch (error) {
+	core.setFailed(error.message);
     }
+    
 }
 
 run();
