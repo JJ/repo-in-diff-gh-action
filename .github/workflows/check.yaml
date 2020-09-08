@@ -1,4 +1,4 @@
-name: "Info from repo"
+name: "Testing pull requests"
 on: [pull_request]
 
 jobs:
@@ -6,12 +6,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: getDiff
-        uses: JJ/github-pr-contains-action@releases/v1
+        uses: JJ/github-pr-contains-action@releases/v2
         with:
           github-token: ${{github.token}}
           filesChanged: 1
       - name: obtain-repo
-        uses: JJ/repo-in-diff-gh-action@releases/v0
+        uses: JJ/repo-in-diff-gh-action@releases/v1
         with:
           github-token: ${{github.token}}
           minMilestones: 3
