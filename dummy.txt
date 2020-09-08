@@ -1,1 +1,1 @@
-[MDS](https://github.com/antoniomdk/model-deployment-service) | v0.0.1 
+[MDS](https://github.com/antoniomdk/model-deployment-service) | v0.0.1
