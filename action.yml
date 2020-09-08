@@ -10,6 +10,8 @@ inputs:
     description: "Minimum version of repo to check milestones"
   github-token:
     description: "GitHub token to check the API"
+  minPRs:
+    description: "Minimum number of closed PRs acceptable"
 runs:
   using: 'node12'
   main: 'lib/main.js'
