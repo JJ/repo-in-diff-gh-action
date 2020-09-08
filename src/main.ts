@@ -5,6 +5,12 @@ async function run() {
   try {
       const diff = process.env.diff as string;
       var ghRepoMatch = /github.com\/(\S+)\/(.+?)(:\s+|\))/.exec(diff)
+      var versionMatch= /\s*v(\d+\.\d+\.\d+)/.exec(diff);
+      if ( versionMatch !== null && versionMatch.length > 0 ) {
+	  const version = versionMatch[0] as string;
+	  core.exportVariable('version',version);
+	  core.setOutput('version',version);
+      }
       if  ( ghRepoMatch === null ) {
 	  core.setFailed("There's no repo URL in this diff")
       } else {
