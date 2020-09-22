@@ -72,11 +72,10 @@ async function run() {
 				if ( !events.data ) {
 				    core.setFailed( "Issue " + issue.number + " wasn't closed with a commit");
 				} else {
-				    events.data.forEach( async function( event ) {
-					if ( event.event == 'closed' && ! event.commit_id ) {
-					    core.setFailed( "Issue " + issue.number + " wasn't closed with a commit");
-					}
-				    })
+                                    const last_event = events.data[events.data.length-1]
+				    if ( last_event.event == 'closed' && ! last_event.commit_id ) {
+					core.setFailed( "Issue " + issue.number + " wasn't closed with a commit");
+				    }
 				}
 			    }
 			})
