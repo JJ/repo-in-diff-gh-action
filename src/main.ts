@@ -12,7 +12,7 @@ async function run() {
 	if ( versionMatch !== null && versionMatch.length > 0 ) {
 	    const version = semver.clean(versionMatch[0]) as string;
 	    if ( ! semver.valid(version ) ) {
-		core.setFailed( version + " is not a valid semantic version ");
+		core.setFailed( "❌ " + version + " is not a valid semantic version ");
 	    }
 	    core.exportVariable('version',version);
 	    core.setOutput('version',version);
@@ -21,11 +21,11 @@ async function run() {
 	    var ghRepoMatch = /github.com\/(\S+)\/(.+?)(:\s+|\))/.exec(diff)
 
 	    if  ( ghRepoMatch === null ) {
-		    core.setFailed("There's no repo URL in this diff with required format")
+		    core.setFailed("❌ There's no repo URL in this diff with required format")
 	    } else {
 		const user = ghRepoMatch[1]
 		const repo = ghRepoMatch[2]
-		console.log( "Retrieving repo " + repo + " for user " + user )
+		console.log( "» Retrieving repo " + repo + " for user " + user )
 		const token = core.getInput('github-token', {required: true})
 		const github = new GitHub(token, {} )
 
@@ -36,7 +36,7 @@ async function run() {
 		    const PRs = await github.pulls.list( { state: "closed", owner: user, repo: repo } )
 		    console.log("::debug:: " + PRs.data )
 		    if (  PRs.data.length < minPRs ) {
-			core.setFailed("There should be at least " + minPRs + " closed PRs")
+			core.setFailed("❌ There should be at least " + minPRs + " closed PRs")
 		    }
 		}
 
@@ -44,11 +44,11 @@ async function run() {
 		if ( semver.gt( version, minVersion ) ) { // Only check this if version is higher
 		    const milestones = await github.issues.listMilestonesForRepo( { owner: user, repo: repo } )
 		    if ( ! milestones.data.length ) {
-			core.setFailed("There should be at least one milestone")
+			core.setFailed("❌ There should be at least one milestone")
 		    }
 		    const minMilestones = +core.getInput('minMilestones')
 		    if ( minMilestones && milestones.data.length < minMilestones ) {
-			core.setFailed( "There should be more than " + minMilestones + " milestone(s)");
+			core.setFailed( "❌ There should be more than " + minMilestones + " milestone(s)");
 		    }
 		    var totalIssues = 0
 		    var totalClosedIssues = 0
@@ -56,11 +56,11 @@ async function run() {
 			totalIssues += milestone.open_issues + milestone.closed_issues
 			totalClosedIssues += milestone.closed_issues
 		    })
-		    console.log( "There are " + totalIssues + " issues in your milestones  and " + totalClosedIssues + " closed issues ")
+		    console.log( "✅ There are " + totalIssues + " issues in your milestones  and " + totalClosedIssues + " closed issues ")
 		    if ( ! totalIssues ) {
-			core.setFailed( "There are 0 issues in your milestones")
+			core.setFailed( "❌ There are 0 issues in your milestones")
 		    } else if ( ! totalClosedIssues ) {
-			core.setFailed( "There are no closed issues in your milestones")
+			core.setFailed( "❌ There are no closed issues in your milestones")
 		    } else  {
 			const options = await github.issues.listForRepo( { owner: user, repo: repo, state: "closed" } )
 			const issues = await github.paginate( options )
@@ -70,11 +70,11 @@ async function run() {
 										 repo: repo,
 										 issue_number: issue.number } )
 				if ( !events.data ) {
-				    core.setFailed( "Issue " + issue.number + " wasn't closed with a commit");
+				    core.setFailed( "❌ Issue " + issue.number + " wasn't closed with a commit");
 				} else {
                                     const last_event = events.data[events.data.length-1]
 				    if ( last_event.event == 'closed' && ! last_event.commit_id ) {
-					core.setFailed( "Issue " + issue.number + " wasn't closed with a commit");
+					core.setFailed( "❌ Issue " + issue.number + " wasn't closed with a commit");
 				    }
 				}
 			    }
