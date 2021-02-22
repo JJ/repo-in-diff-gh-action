@@ -14,4 +14,4 @@ inputs:
     description: "Minimum number of closed PRs acceptable"
 runs:
   using: 'node12'
-  main: 'lib/main.js'
+  main: 'dist/index.js'

@@ -1,34 +1,36 @@
 {
-  "name": "repo-in-diff-gh-action",
-  "version": "0.1.0",
-  "description": "Runs checks on repository: milestones, issues, PRs",
-  "main": "lib/main.js",
-  "scripts": {
-    "build": "tsc",
-    "test": "jest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/JJ/repo-in-diff-gh-action.git"
-  },
-  "keywords": [
-    "actions",
-    "github API",
-    "evaluation"
-  ],
-  "author": "JJ Merelo",
-  "license": "MIT",
-  "dependencies": {
-    "@actions/core": "^1.2.6",
-    "@actions/github": "^1.1.0",
-    "semver": "^7.3.2"
-  },
-  "devDependencies": {
-    "@types/jest": "^24.0.13",
-    "@types/node": "^12.0.4",
-    "jest": ">=24.8.0",
-    "jest-circus": "^24.7.1",
-    "ts-jest": "^26.5.1",
-    "typescript": "^3.5.1"
-  }
+    "name": "repo-in-diff-gh-action",
+    "version": "0.2.0",
+    "description": "Runs checks on repository: milestones, issues, PRs",
+    "main": "lib/main.js",
+    "scripts": {
+        "build": "tsc",
+        "test": "jest",
+        "package": "ncc build --source-map --license licenses.txt"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/JJ/repo-in-diff-gh-action.git"
+    },
+    "keywords": [
+        "actions",
+        "github API",
+        "evaluation"
+    ],
+    "author": "JJ Merelo",
+    "license": "MIT",
+    "dependencies": {
+        "@actions/core": "^1.2.6",
+        "@actions/github": "^1.1.0",
+        "semver": "^7.3.2"
+    },
+    "devDependencies": {
+        "@types/jest": "^24.0.13",
+        "@types/node": "^12.0.4",
+        "@vercel/ncc": "^0.25.1",
+        "jest": ">=24.8.0",
+        "jest-circus": "^24.7.1",
+        "ts-jest": "^26.5.1",
+        "typescript": "^3.5.1"
+    }
 }
