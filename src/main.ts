@@ -21,7 +21,7 @@ async function run() {
 	    var ghRepoMatch = /github.com\/(\S+)\/(.+?)(:\s+|\))/.exec(diff)
 
 	    if  ( ghRepoMatch === null ) {
-		    core.setFailed("❌ There's no repo URL in this diff with required format")
+		core.setFailed("❌ There's no repo URL in this diff with required format")
 	    } else {
 		const user = ghRepoMatch[1]
 		const repo = ghRepoMatch[2]
