@@ -28,7 +28,11 @@ async function run() {
 		console.log( "» Retrieving repo " + repo + " for user " + user )
 		const token = core.getInput('github-token', {required: true})
 		const github = new GitHub(token, {} )
-
+                core.exportVariable('user',user);
+                core.exportVariable('repo',repo);
+                core.setOutput('user',user);
+                core.setOutput('repo',repo);
+                
 		// Get PRs
 		const minPRs = +core.getInput('minPRs')
 		console.log("::debug:: " + minPRs);
