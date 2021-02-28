@@ -32,7 +32,7 @@ async function run() {
                 core.exportVariable('repo',repo);
                 core.setOutput('user',user);
                 core.setOutput('repo',repo);
-                
+
 		// Get PRs
 		const minPRs = +core.getInput('minPRs')
 		console.log("::debug:: " + minPRs);
