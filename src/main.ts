@@ -41,11 +41,14 @@ async function run() {
 		    console.log("::debug:: " + PRs.data )
 		    if (  PRs.data.length < minPRs ) {
 			core.setFailed("❌ There should be at least " + minPRs + " closed PRs")
-		    }
+		    } else {
+                        console.log( "✅ There are " + minPRs + " issues or more ")
+                    }
 		}
 
 		// Check milestones and issues from a certain version
 		if ( semver.gt( version, minVersion ) ) { // Only check this if version is higher
+                    console.log( "✅ Checks for version " + version + " >  " + minVersion )
 		    const milestones = await github.issues.listMilestonesForRepo( { owner: user, repo: repo } )
 		    if ( ! milestones.data.length ) {
 			core.setFailed("❌ There should be at least one milestone")
@@ -53,7 +56,10 @@ async function run() {
 		    const minMilestones = +core.getInput('minMilestones')
 		    if ( minMilestones && milestones.data.length < minMilestones ) {
 			core.setFailed( "❌ There should be more than " + minMilestones + " milestone(s)");
-		    }
+		    } else {
+                        console.log( "✅ There are " + minMilestones + " milestones or more ")
+                    }
+
 		    var totalIssues = 0
 		    var totalClosedIssues = 0
 		    milestones.data.forEach( async function( milestone ) {
