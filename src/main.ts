@@ -93,8 +93,14 @@ async function run() {
 		}
 	    }
 	}
-    } catch (error) {
-	core.setFailed(error.message);
+    } catch (error: any) {
+		if (error instanceof Error ) {
+			core.setFailed("❌ " + error.message);
+		} else if ( typeof error === "string") {
+			core.setFailed("❌ " + error );
+		} else {
+			core.setFailed("❌ unknown error" );
+		}
     }
 
 }
